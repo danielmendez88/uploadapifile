@@ -100,15 +100,15 @@ class FileController extends Controller
     {
         try {
             $validador = Validator::make($request->all(), [
-                'imagen' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+                'inputFile' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
             ]);
             if ($validador->fails()) {
                 # mensaje de fallo
                 return response()->json(['error' => $validador->errors()], 409);
             } else {
-                if ($request->hasFile('imagen')) {
+                if ($request->hasFile('inputFile')) {
                     # si se encuentra la imagen comenzamos a subirlo...
-                    $file = $request->file('imagen');
+                    $file = $request->file('inputFile');
                     $tamanio = $file->getSize();
                     $extensionImagen = $file->getClientOriginalExtension(); // extension de la imagen
                     $destinationPath = public_path('/uploadFiles/'); // upload path
